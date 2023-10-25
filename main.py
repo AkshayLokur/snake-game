@@ -10,7 +10,7 @@ screen.bgcolor("black")
 screen.title("My Snake Game :)")
 screen.tracer(0)  # to disable automatic screen tracing / refresh / animation
 
-snake = Snake(snake_body_length=3)
+snake = Snake(snake_body_length=10)
 food = Food()
 scoreboard = ScoreBoard()
 screen.update()
@@ -28,12 +28,19 @@ while is_game_on:
     time.sleep(0.1)
     snake.move()
 
+    # Eat food
     if snake.head.distance(food) < 15:
         food.refresh()
+        snake.extend_length()
         scoreboard.update_scoreboard()
 
     # Collision with the wall
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+        scoreboard.game_over()
+        is_game_on = False
+
+    # Collision with body
+    if snake.detect_collision_with_body():
         scoreboard.game_over()
         is_game_on = False
 

@@ -10,19 +10,31 @@ DOWN = 270
 class Snake:
     def __init__(self, snake_body_length):
         self.body = []
+        self.x_pos = 0
         self.snake_body_length = snake_body_length
         self.make()
         self.head = self.body[0]
 
     def make(self):
-        x_pos = 0
         for i in range(0, self.snake_body_length):
-            t = Turtle(shape="square")
-            t.color("white")
-            t.penup()
-            t.goto(x_pos, y=0)
-            x_pos -= 20
+            t = self.__create_snake()
             self.body.append(t)
+
+    def __create_snake(self):
+        t = Turtle(shape="square")
+        t.penup()
+        t.goto(self.x_pos, y=0)
+        t.color("white")
+        self.x_pos -= 20
+        return t
+
+    def extend_length(self):
+        self.body.append(self.__create_snake())
+
+    def detect_collision_with_body(self):
+        for b in self.body:
+            if self.head != b and self.head.distance(b) < 15:
+                return True
 
     def move(self):
         for part in range(len(self.body) - 1, 0, -1):
