@@ -1,6 +1,7 @@
 from turtle import Screen
 from snake import Snake
 from food import Food
+from scoreboard import ScoreBoard
 import time
 
 screen = Screen()
@@ -11,6 +12,7 @@ screen.tracer(0)  # to disable automatic screen tracing / refresh / animation
 
 snake = Snake(snake_body_length=3)
 food = Food()
+scoreboard = ScoreBoard()
 screen.update()
 
 screen.listen()  # listen to keystrokes
@@ -28,5 +30,6 @@ while is_game_on:
 
     if snake.head.distance(food) < 15:
         food.refresh()
+        scoreboard.update_scoreboard()
 
 screen.exitonclick()
