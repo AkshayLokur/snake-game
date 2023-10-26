@@ -10,7 +10,7 @@ screen.bgcolor("black")
 screen.title("My Snake Game :)")
 screen.tracer(0)  # to disable automatic screen tracing / refresh / animation
 
-snake = Snake(snake_body_length=10)
+snake = Snake(snake_body_length=3)
 food = Food()
 scoreboard = ScoreBoard()
 screen.update()
